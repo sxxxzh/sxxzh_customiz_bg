@@ -185,14 +185,23 @@ class SystemTrayIcon:
                 self.auto_start_enabled = False
                 log("已禁用开机自启")
             else:
-                # 启用开机自启
-                exe_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "dist", "sxxzh_customiz_bg", "sxxzh_customiz_bg.exe"))
+                # 启用开机自启 - 智能检测打包环境
+                if getattr(sys, 'frozen', False):
+                    # 打包后环境：使用当前可执行文件路径
+                    exe_path = sys.executable
+                else:
+                    # 开发环境：使用打包后的可执行文件路径
+                    exe_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "dist", "sxxzh_customiz_bg", "sxxzh_customiz_bg.exe"))
+                
                 if os.path.exists(exe_path):
                     winreg.SetValueEx(key, "sxxzh_customiz_bg", 0, winreg.REG_SZ, f'"{exe_path}"')
                     self.auto_start_enabled = True
-                    log("已启用开机自启")
+                    log(f"已启用开机自启，路径: {exe_path}")
                 else:
-                    log("错误：找不到可执行文件，请先打包程序")
+                    if getattr(sys, 'frozen', False):
+                        log("错误：打包后程序路径异常，无法设置开机自启")
+                    else:
+                        log("错误：找不到可执行文件，请先打包程序")
             
             winreg.CloseKey(key)
             
