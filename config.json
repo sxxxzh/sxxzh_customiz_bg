@@ -1,0 +1,33 @@
+{
+    "enabled": true,
+    "scan_interval": 3,
+    "ignore_size": 120000,
+    "targets": [
+        {
+            "name": "Notepad",
+            "keywords": [
+                "notepad.exe",
+                "记事本"
+            ],
+            "image_path": "images//background.png",
+            "alpha": 40,
+            "brightness": 1.0,
+            "contrast": 1.0,
+            "saturation": 1.0,
+            "main_min_area": 0
+        },
+        {
+            "name": "Weixin",
+            "keywords": [
+                "Weixin.exe",
+                "Weixin"
+            ],
+            "image_path": "images//background.png",
+            "alpha": 40,
+            "brightness": 1.0,
+            "contrast": 1.0,
+            "saturation": 1.0,
+            "main_min_area": 0
+        }
+    ]
+}
